@@ -11,6 +11,137 @@
 <h3 align="center">Denoising Dihedrals</h3>
 
 <h2 align='left'>📋 About</h2>
-<p align='left'>FUN is a deep learning framework which employs a U-Net architecture to implement stanadrd diffusion strategy over dihedral and internal angles of 3D protein structures.</p>
+<p align='left'>FUN is a deep learning framework which employs a U-Net architecture to implement standard diffusion strategy over dihedral and internal angles of 3D protein structures.</p>
+
+<h2 align='left'>📁 Data</h2>
+<h3 align='left'>🧺 Collection</h3>
+<p align='left'>Data of protein pdb structures was collected from the non-redundant CATH database</p>
+<p align='left'>The PDB structures of protein were then parsed, and the required angles were calculated using an in-house script.</p>
+<h3 align='left'>🏭 Preprocessing</h3>
+<p align='left'>To maintain a fixed length inputs, the protein structures were chopped off into non-overlapping peptides of 64aa</p>
+<p align='left'>Angles calculated for each of the peptide were in the range [-pi, pi] radians. These were brought down to [-1,1] by dividing the angles by pi</p>
+<p align='left'>In total ~65k instances were generated for model training</p>
 
 
+
+
+<h2 align='left'>🏗️ Architecture</h2>
+<img width="1920" height="1080" alt="Screenshot (16)" src="https://github.com/user-attachments/assets/7505a540-394f-436d-9a5d-17fe0efdc25a" />
+
+
+
+
+<p align='left'></p>
+
+## Denoising Diffusion Probabilistic Models (DDPM)
+
+Denoising Diffusion Probabilistic Models (DDPMs) define a **forward diffusion process**
+that gradually adds Gaussian noise to a data sample, and a **reverse denoising process**
+that learns to recover the original data by iteratively removing the noise.
+
+---
+
+### 1. Forward Diffusion Process
+
+Given a real data sample $\ \mathbf{x}_0 \sim q(\mathbf{x}_0) \$,  
+the forward process produces a sequence of increasingly noisy samples:
+
+$$
+q(\mathbf{x}_{1:T} | \mathbf{x}_0) = \prod_{t=1}^{T} q(\mathbf{x}_t | \mathbf{x}_{t-1})
+$$
+
+where
+
+$$
+q(\mathbf{x}_t | \mathbf{x}_{t-1}) = 
+\mathcal{N}\left(\mathbf{x}_t; \sqrt{1 - \beta_t} \ \mathbf{x}_{t-1} \, \beta_t \mathbf{I}\right)
+$$
+
+Here, $\( \beta_t \)$ controls the noise level at each timestep \( t \).
+
+---
+
+### 2. Linear Noise Scheduler
+
+A **linear scheduler** defines $\( \beta_t )\$ that increases linearly from 
+$\ \beta_{\text{start}} \ to \ \beta_{\text{end}} \$:
+
+$$
+\beta_t = \beta_{\text{start}} + 
+\frac{t-1}{T-1} (\beta_{\text{end}} - \beta_{\text{start}}), \quad t = 1, \dots, T
+$$
+
+We define:
+
+$$
+\alpha_t = 1 - \beta_t, \quad 
+\bar{\alpha}_t = \prod_{s=1}^{t} \alpha_s
+$$
+
+Then, the closed-form expression for the noisy sample at timestep $\( t \)$ is:
+
+$$
+q(\mathbf{x}_t | \mathbf{x}_0) = 
+\mathcal{N}\left(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \, \mathbf{x}_0, \, (1 - \bar{\alpha}_t)\mathbf{I}\right)
+$$
+
+---
+
+### 3. Reverse (Denoising) Process
+
+The goal is to learn the reverse conditional distribution:
+
+$$
+p_\theta(\mathbf{x}_{t-1} | \mathbf{x}_t) = 
+\mathcal{N}\left(
+\mathbf{x}_{t-1}; \boldsymbol{\mu}_\theta(\mathbf{x}_t, t), \, 
+\Sigma_\theta(\mathbf{x}_t, t)
+\right)
+$$
+
+where $\( \boldsymbol{\mu}_\theta \)$ is predicted by a neural network (e.g., U-Net) parameterized by $\( \theta \)$.
+
+### 4. Training Objective
+
+Training minimizes a simplified noise-prediction loss:
+
+$$
+L_{\text{simple}}(\theta) =
+\mathbb{E}_{t, \mathbf{x}_0, \boldsymbol{\epsilon}}
+\left[
+\left\|
+\boldsymbol{\epsilon} -
+\boldsymbol{\epsilon}_\theta
+\left(
+\sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}, \, t
+\right)
+\right\|_2^2
+\right]
+$$
+
+where $\( \boldsymbol{\epsilon} \sim \mathcal{N}(0, \mathbf{I}) \)$ is the noise added at each step.
+
+---
+
+### 5. Sampling (Reverse Process)
+
+Starting from $\( \mathbf{x}_T \sim \mathcal{N}(0, \mathbf{I}) \)$, we iteratively apply:
+
+$$
+\mathbf{x}_{t-1} = \frac{1}{\sqrt{\alpha_t}} \left( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \, \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \right) + \sigma_t \mathbf{z}
+$$
+
+
+where $\ \mathbf{z} \sim \mathcal{N}(0, \mathbf{I}) \ if \ t > 1 \$,
+and $\ \sigma_t = \sqrt{\beta_t} \$.
+
+---
+
+### 6. Summary
+
+- **Forward:** progressively corrupts data with Gaussian noise  
+- **Reverse:** denoises step-by-step using a learned network  
+- **Linear scheduler:** smoothly increases $\( \beta_t )\$  
+- **Loss:** MSE between true and predicted noise  
+
+DDPMs thus learn to model complex data distributions through iterative denoising.
