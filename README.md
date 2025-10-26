@@ -11,6 +11,6 @@
 <h3 align="center">Denoising Dihedrals</h3>
 
 <h2 align='left'>📋 About</h2>
-<p align='left'></p>
+<p align='left'>FUN is a deep learning framework which employs a U-Net architecture to implement stanadrd diffusion strategy over dihedral and internal angles of 3D protein structures.</p>
 
 
