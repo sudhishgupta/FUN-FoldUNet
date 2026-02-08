@@ -1,0 +1,44 @@
+{
+    "dataset_params": {
+        "im_path": "test1/"
+    },
+    "diffusion_params": {
+        "num_timesteps": 1000,
+        "beta_start": 0.0001,
+        "beta_end": 0.02
+    },
+    "model_params": {
+        "im_channels": 6,
+        "im_size": 64,
+        "down_channels": [
+            32,
+            64,
+            128,
+            256
+        ],
+        "mid_channels": [
+            256,
+            256,
+            128
+        ],
+        "down_sample": [
+            true,
+            true,
+            false
+        ],
+        "time_emb_dim": 128,
+        "num_down_layers": 2,
+        "num_mid_layers": 2,
+        "num_up_layers": 2,
+        "num_heads": 4
+    },
+    "train_params": {
+        "task_name": "default_fd3",
+        "batch_size": 8,
+        "num_epochs": 400,
+        "num_samples": 10,
+        "num_grid_rows": 10,
+        "lr": 1e-05,
+        "ckpt_name": "ddpm_foldingdiff1.pth"
+    }
+}
