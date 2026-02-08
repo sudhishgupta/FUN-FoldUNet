@@ -23,6 +23,41 @@
 <p align='left'>In total ~65k instances were generated for model training</p>
 
 
+<h2 align='left'>👟 Training</h2>
+<p align='left'>Talk Training</p>
+
+
+
+<h2 align='left'>🛎️ Sampling</h2>
+<img width="1836" height="1032" alt="image" src="https://github.com/user-attachments/assets/a29bc612-afbc-4995-99c4-5d1e8a836acb" />
+
+```
+usage: generate_samples.py [-h] [--ckpt_path CKPT_PATH] [--noise_schedule NOISE_SCHEDULE] [--num_samples NUM_SAMPLES]
+                           [--movie_folder MOVIE_FOLDER] [--out_folder OUT_FOLDER] [--n_sequences N_SEQUENCES]
+                           [--temperature TEMPERATURE]
+
+options:
+  -h, --help            show this help message and exit
+  --ckpt_path CKPT_PATH
+                        Path to model checkpoint (.pth file)
+  --noise_schedule NOISE_SCHEDULE
+                        choose the noise schedule based on the model in use
+  --num_samples NUM_SAMPLES
+                        Number of samples to generate
+  --movie_folder MOVIE_FOLDER
+                        Output folder for movie frames
+  --out_folder OUT_FOLDER
+                        Final output folder for generated structures
+  --n_sequences N_SEQUENCES
+                        Number of sequences to generate per sample
+  --temperature TEMPERATURE
+                        Sampling temperature (controls randomness)
+
+```
+
+<p align='left'>
+
+
 
 
 <h2 align='left'>🏗️ Architecture</h2>
