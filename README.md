@@ -24,18 +24,31 @@
 
 
 <h2 align='left'>👟 Training</h2>
-<p align='left'>Talk Training</p>
+<p align='left'>Edit the config.json file for editing parameters related to model, noise schedule and saving checkpoints.</p>
+<p align='left'>Make sure to use the same configs for generating samples from a custom-trained model</p>
 
-
+```
+python train2.py [-h] [--train_data TRAIN_DATA] [--config_file CONFIG_FILE]
+```
+```
+options:
+  -h, --help            show this help message and exit
+  --train_data TRAIN_DATA
+                        Path to the training data (.npy arrays)
+  --config_file CONFIG_FILE
+                        Config file to determine all the training parameters
+```
 
 <h2 align='left'>🛎️ Sampling</h2>
 <img width="1836" height="1032" alt="image" src="https://github.com/user-attachments/assets/a29bc612-afbc-4995-99c4-5d1e8a836acb" />
 
 ```
-usage: generate_samples.py [-h] [--ckpt_path CKPT_PATH] [--noise_schedule NOISE_SCHEDULE] [--num_samples NUM_SAMPLES]
+python generate_samples.py [-h] [--ckpt_path CKPT_PATH] [--noise_schedule NOISE_SCHEDULE] [--num_samples NUM_SAMPLES]
                            [--movie_folder MOVIE_FOLDER] [--out_folder OUT_FOLDER] [--n_sequences N_SEQUENCES]
-                           [--temperature TEMPERATURE]
+                           [--temperature TEMPERATURE] [--config_file CONFIG_FILE]
 
+```
+```
 options:
   -h, --help            show this help message and exit
   --ckpt_path CKPT_PATH
@@ -51,7 +64,9 @@ options:
   --n_sequences N_SEQUENCES
                         Number of sequences to generate per sample
   --temperature TEMPERATURE
-                        Sampling temperature (controls randomness)
+                        ProteinMPNN Sampling temperature (controls randomness)
+  --config_file CONFIG_FILE
+                        Config file to determine all the training parameters
 
 ```
 
