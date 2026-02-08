@@ -83,6 +83,9 @@ options:
 
 <p align='left'></p>
 
+![angles_t0000](https://github.com/user-attachments/assets/2e8dab12-51ea-4220-ab72-5758350dfe95)
+
+
 ## Denoising Diffusion Probabilistic Models (DDPM)
 
 Denoising Diffusion Probabilistic Models (DDPMs) define a **forward diffusion process**
