@@ -12,6 +12,8 @@
 
 
 ![FUN_4pdb_diffusion_movie-compress1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ba62ad44-b681-4682-b6dc-238637394e9c)
+![diffusion_movie_angles-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/517f7a1e-9ae3-4935-9add-7fc631f821d9)
+
 
 
 <h2 align='left'>📋 About</h2>
@@ -85,9 +87,17 @@ options:
 
 
 
-<p align='left'></p>
+<h2 align='left'>🎯 Results</h2>
 
-![angles_t0000](https://github.com/user-attachments/assets/2e8dab12-51ea-4220-ab72-5758350dfe95)
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/a89c420a-278a-4a2f-91ea-189a2e781526" />
+
+## 🐹 Comparison of backbone torsional statistics and structural outputs between the training distribution and the learned generative model. 
+**Top left:** Ramachandran density plots show close agreement between real and generated φ–ψ distributions, indicating faithful recovery of secondary-structure–specific conformational basins.
+###
+**Bottom panels:** Marginal distributions of φ, ψ, ω, and internal θ angles demonstrate substantially reduced KL and JS divergences after training, reflecting improved alignment with empirical statistics. 
+###
+**Right:** Representative generated structures refined via *AlphaFold3* (inverse folding) yield well-formed helical conformations, supporting structural plausibility of the learned angle distributions. 
+
 
 
 ## Denoising Diffusion Probabilistic Models (DDPM)
