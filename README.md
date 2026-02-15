@@ -10,6 +10,10 @@
 </p>
 <h3 align="center">Denoising Dihedrals</h3>
 
+
+![FUN_4pdb_diffusion_movie-compress1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ba62ad44-b681-4682-b6dc-238637394e9c)
+
+
 <h2 align='left'>📋 About</h2>
 <p align='left'>FUN is a deep learning framework which employs a U-Net architecture to implement standard diffusion strategy over dihedral and internal angles of 3D protein structures.</p>
 
