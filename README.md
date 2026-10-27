@@ -17,7 +17,8 @@
 
 
 <h2 align='left'>📋 About</h2>
-<p align='left'>FUN is a deep learning framework which employs a U-Net architecture to implement standard diffusion strategy over dihedral and internal angles of 3D protein structures.</p>
+<p align='left'>FUN is a deep learning framework that employs a U-Net architecture to implement a standard diffusion strategy over dihedral and internal angles of 3D protein structures, building upon the approach of the FoldingDiff (Wu et al. Nat. Comm. 2024) framework.</p>
+
 
 <h2 align='left'>📁 Data</h2>
 <h3 align='left'>🧺 Collection</h3>
